@@ -1,0 +1,329 @@
+---
+title: "Guided Google Case Study: Bike Share"
+author: "Gregory Carter"
+date: "08/07/2023"
+output:
+      html_document:
+        toc: true
+        toc_depth: 3
+        toc_float: true
+---
+<br>
+
+### **1.Context:** 
+
+This is a project guided by Google for the Google Data Analyst Certificate. This is the bike-share project, based on a fictional company: "Cyclist". I will be guided and reminded of the steps of going through a completed project.The steps follow the **ASK, PREPARE, PROCESS, ANALYZE, SHARE, ACT** requirements, where the aim is to investigate how annual and casual riders use the bikes differently. The thinking that goes into executing the steps and analyzing the data will be my own.  
+<br>
+
+### **2. ASK** 
+
+The key question to address is: How do annual and casual riders use Cyclist bikes differently?
+
+In this instance "annual users" are those who pay for a year's worth of the service as subscribers. "Casual users" are those who buy single-ride or full-day passes.
+<br>
+<br>
+
+**BUSINESS TASK**
+<br>
+It is more profitable to have annual memberships. Hence determining the differences between the two user groups is a key task. Based on these differences recommendations can be made to increase the number of annual (subscribed) users, by converting casual riders into annual cyclists. 
+<br>
+<br>
+**KEY STAKEHOLDERS**
+<br>
+In terms of the customer base, the stakeholders involved are the casual and annual users respectively.
+<br>
+Within the company, Cyclist, Lily Moreno is the director of marketing who requires the recommendations to improve the marketing strategy. She will, in turn, report to the executive team to approve any recommended marketing program.  
+
+**Some sub-questions to drive the investigation include:**
+
+* How frequently do annual and casual users use the ride service?
+* How long, on average, does an annual user use the bike compared to a casual user in a given day?
+* Which days of the week or more popular for casual and annual users?
+* What is the most popular time of use for subscribers vs casual users?
+* Which stations have the greatest number of casual users?
+* Which stations are more popular as starting points for casual users compared to annual users?
+
+These sub-questions will enable the marketing team to design a campaign based on where the most casual users are and when they are most likely to use the Cyclist services.   
+
+### **3. PREPARE** 
+
+The data has been made available by Motivate International Inc.
+The specific data sets considered are Divvy 2019 Q1 and Divvy 2020 Q2.
+The data are organised in a wide format, providing each ride event with the following attributes:
+
+* rideable_type (all are "docked_bike")
+* started_at (containing both date and start time of the ride)
+* ended_at (containing both date and end time of the ride)
+* start_station_name
+* start_station_id
+* end_station_name
+* end_station_id
+* the starting and ending coordinates
+* type of member ("member" vs "casual")
+* end_station_name
+
+<br>
+The Divvy 2019 Q1 data set also includes "bikeid" and "tripduration" and "gender" attributes with "birthyear".Usertype is designated as "Subscriber" vs "Customer".  
+
+**Data Reliability**
+<br>
+The data has been made public under the licensed agreement between Lyft Bikes and Scooters and the City of Chicago's Divvy bicycle sharing service. The riders' personally identifiable information has been removed from the data. 
+
+Examining the two data sets on excel shows that for the data for the purposes of this investigation are reliable and comprehensive for the given periods of covered by the data set. It must be noted that focusing on the 2019 and 2020 Q1 periods, gives a limited view of reflecting on 2025 but will serve for the purposes of this investigation. 
+
+There are some small discrepancies such as different terms being used for 'casual' and 'annual' users as defined at the beginning of this report.
+
+There is missing data and inconsistencies  in the gender, user_type and and trip_duration of the 2019 data set but these data will not be used in this report. 
+
+*Data Relevance*
+<br>
+From the start and end times provided the duration of casual and annual users' trips can be determined. From the provided start date of each trip it is possible to determine which days of the week are more popular for the different types of users. From the start_station_IDs it is possible to find which stations are used more by casual and annual users respectively. Finally, from the provided start times of rides we can determine the most popular use times for the two different user types. 
+
+*Problems*
+For the purposes of this report the problems that can be resolved in cleaning are the columns, in both data sets, that contain a merged time and date and the user type classification as mentioned above. 
+
+### **4. PROCESS** 
+
+**Tools**
+<br>
+Excel will be used to process and perform the initial exploration of the data as the size of the dataset allows for this. The analysis will be performed using Rstudio, for the inconvenience of reporting and visualization purposes. 
+
+**Cleaning actions**
+<br>
+
+1. Irrelevant attributes for the purposes of the investigation were removed.
+
+2. For both data sets the merged date and time for both the start and end of trips were split and changed into a yyyy/mm/dd and hr:min:sec format. 
+
+3. The 2020 dataset was filtered from oldest to newest date, in line with the 2019 dataset.
+
+4. In both datasets usertype was changed to "casual" and "annual", in line with the definition made above. In the 2020 dataset "member" was changes to annual. In the 2019 dataset "Subscriber" was changed to "annual" and "Customer" was changes to "casual".
+
+5. A discrepancy was noted in the 2019 data set where trip ID 21742463 was designated as "alos". In the real world this would be queried. Since this was not an option the entry was changed to "annual", as there are 341906 annual users and only 23162 casual users it is simply more probable that "alos" was an annual user. 
+
+6. All the attribute titles were standardised and put into the same order for the two data sets.  
+
+### **5. ANALYSE** 
+
+The two data sets are combined and an overview of the column attributes is given:  
+
+
+```{r}
+library(tidyverse)
+Divvy_2019 <- read_csv("C:\\Users\\Greg\\OneDrive\\Documents\\Coursera Notes\\8. CAPSTONE\\Bike Share\\Working Documents\\Divvy_2019_Q1.csv")
+Divvy_2020 <- read_csv("C:\\Users\\Greg\\OneDrive\\Documents\\Coursera Notes\\8. CAPSTONE\\Bike Share\\Working Documents\\Divvy_2020_Q1.csv")
+combined_data <- bind_rows(Divvy_2019, Divvy_2020)
+
+colnames(combined_data)
+```
+In terms of overall numbers of causal and annual users, we have
+
+```{r}
+count_casual <- combined_data %>% 
+  count(usertype) %>% 
+  filter(usertype == "casual") %>% 
+  pull(n)
+
+count_annual <- combined_data %>% 
+  count(usertype) %>% 
+  filter(usertype == "annual") %>% 
+  pull(n)
+
+print(paste("There are", count_casual, "casual users"), quote = FALSE)
+print(paste("There are", count_annual, "annual users"), quote = FALSE)
+
+difference <- count_annual - count_casual
+
+print(paste("So there are", difference, "more annual users" ), quote = FALSE)
+
+```
+
+
+It was discovered that 234 ride_lengths were less than a second (probably an error in entry because this impossible), and recorded incorrectly. These data were removed to find the average ride length.
+```{r}
+
+library(hms)
+
+combined_data_clean <- combined_data %>%
+  mutate(ride_length = as.numeric(hms::as_hms(ride_length)))
+```
+
+The mean travel time for casual and annual users is determined.
+For casual users in hh:mm:ss we have:
+
+
+
+
+```{r}
+mean_casual_sec <- combined_data_clean %>%
+  filter(usertype == "casual") %>%
+  summarise(mean_ride_casual = round(mean(ride_length, na.rm = TRUE))) %>%   pull(mean_ride_casual)
+
+mean_annual_sec <- combined_data_clean %>%
+  filter(usertype == "annual") %>%
+  summarise(mean_ride_annual = round(mean(ride_length, na.rm = TRUE))) %>%   pull(mean_ride_annual)
+  
+mean_casual_hms <- hms::as_hms(mean_casual_sec) 
+mean_annual_hms <- hms::as_hms(mean_annual_sec)
+
+print(mean_casual_hms)
+
+  
+                
+```
+For annual users in hh:mm:ss we have:
+```{r}
+print(mean_annual_hms)
+```
+Considering the days of the week, the top 3 days of the week for counts of number of rides for casual users on that day is calculated:
+```{r}
+count_days <- combined_data %>% 
+  group_by(usertype) %>% 
+  count(Weekday)
+
+count_days <- count_days %>% 
+  rename(count_of_rides = n)
+
+top3_casual <- count_days %>% 
+  filter(usertype=="casual") %>% 
+  arrange(desc(count_of_rides)) %>% 
+  slice_head(n=3)
+
+print(top3_casual)
+```
+Thus we have Sunday with 18,652 total casual rides; Saturday with 13,473 total casual rides; and Wednesday with 8522 total rides. 
+
+As a proportion of the total casual rides these three days represent:
+
+```{r}
+total_casual <- count_days %>% 
+  filter(usertype=="casual") %>% 
+  pull(count_of_rides) %>% 
+  sum(na.rm=TRUE)
+
+top3_sum<- top3_casual %>% 
+  pull(count_of_rides) %>% 
+  sum(na.rm = TRUE)
+
+proportion <- round(top3_sum/total_casual, 2)
+print(proportion)
+```
+Now we consider which stations are more popular as starting point
+
+```{r}
+Count_start <- combined_data %>% 
+  group_by(start_station_name) %>% 
+  summarise(
+    casual_count = sum(usertype=="casual"),
+    annual_count = sum(usertype == "annual"),
+    .groups = "drop") %>% 
+  arrange(desc(casual_count))
+  
+
+```
+
+
+Here we determine the proportion of casual riders who start their rides from the top 65 most popular stations. In total there are 607 start stations.  
+
+```{r}
+top65_proportion <- Count_start %>% 
+  summarise(
+    sum_casualrides = sum(casual_count),
+    top_65 = sum(casual_count[1:65]),
+    proportion = round(top_65/sum_casualrides, 2)) %>% 
+  pull(proportion)
+  
+print(paste("So the top 65 most popular starting stations represent", top65_proportion, "proportion of casual users." ), quote = FALSE)
+```
+### **6. SHARE and ACT** ###
+
+
+Comparing the frequency of trips made by casual users to annual ("subscribed" users). It is clear that the majority of trips (659,854) are made by annual users.
+```{r}
+
+library(scales)
+combined_data %>%
+  ggplot(aes(x = usertype, fill = usertype)) +
+  geom_bar(position = "dodge") +
+  scale_y_continuous(labels = comma) +
+  labs(title = "Frequency of trips by user type",
+       x = "Usertype",
+       y = "Count of trips",
+       fill = "User Type") +
+  theme_minimal()
+
+
+
+  
+```
+
+In directing marketing towards the casual group riders, the increased use of annual users could be targeted as a marketing tactic (encouraging frequency of use, has health benefits etc.) 
+
+Comparing the average time that a casual user spends on a trip (39min) to annual users (11min), there is a significant difference. Further investigation is needed to find the reasons for this, but one can speculate that annual users may be using the bikes for regular commutes to work, whereas casual users focus more on extended trips and leisurely  rides around the city.
+
+Looking closely at the total number of trips made during the days of the week, there is a clear discrepancy between the most popular days of use for casual and annual users (where 1 is Sunday):
+
+```{r}
+combined_data %>% 
+  ggplot(aes(x = Weekday, fill = usertype)) +
+  geom_bar(position = "dodge") +
+  scale_y_continuous(labels = comma) +
+  labs(title = "Total trips during days of the week",
+       x = "Usertype",
+       y = "Count of trips")
+```
+
+The most use for casual users is during the weekend, and the greatest use of annual users is during the week.
+
+A marketing strategy focusing on converting casual users would get more traction if focused on the weekend users, perhaps by making an appeal to casual users to consider using the service as a way to get to work (assuming of course that these casual users actually live in the city and are not just tourists). 
+
+It my be worth considering Wednesday as a day to market to casual users as well as this is the most popular weekday for casual use.
+
+Examining the most popular times for riding as shown below, both casual and annual users' most popular times for riding are between 06:00 to 18:00 in the day. 
+
+```{r}
+library(dplyr)
+library(lubridate)
+
+combined_data <- combined_data %>%
+  mutate(hour = hour(start_time),
+         time_chunk = case_when(
+           hour >= 0  & hour < 6  ~ "00:00–06:00",
+           hour >= 6  & hour < 12 ~ "06:00–12:00",
+           hour >= 12 & hour < 18 ~ "12:00–18:00",
+           hour >= 18 & hour < 24 ~ "18:00–00:00"
+         ))
+
+combined_data %>% 
+  ggplot(aes(x=time_chunk, fill = usertype)) +
+  geom_bar(position = "dodge") +
+  scale_y_continuous(labels = comma) +
+  labs(title = "Frequency of rides during portions of the day",
+       x = "Time",
+       y = "Count of trips")
+
+```
+
+Any campaign focused on targeting casual users would want to target this time band.
+
+A crucial cost-saving measure would be to target the stations most used by casual users. The chart below is revealing:
+
+```{r}
+print(Count_start[1:10,])
+```
+
+Above are the top 10 locations ranked by the number of casual uses. In areas where there are more casual counts than annual counts (HQ QR;Lake Shore Dr & Monroe St; Streeter Dr & Grand Ave; Shedd Aquarium	), further investigation would be recommended to determine why use in these areas differs. It may be the case that much tourist use occurs in these areas.
+
+Nevertheless, there is a total of 607 start locations. However, it was found in the analysis that by targeting marketing efforts to just the top 65, we would reach approximately 51% of the casual users.
+
+***FINAL REPORT RECOMMENDATIONS:***
+<br>
+
+1. Marketing to casual users can focus on the top 65 most used stations on Saturdays, Sundays and Wednesdays, between 06:00 to 18:00.
+<br>
+
+2. The thrust of any campaign to convert casual to annual users should focus on encouraging those who use the service for leisure, to see the benefit of using it for work. 
+<br>
+
+3. Further investigation is needed to determine how casual users are segmented between residents and tourists. 
+
