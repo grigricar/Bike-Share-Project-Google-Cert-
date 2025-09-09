@@ -9,6 +9,7 @@ This project follows the structure as outlined by the Google Certificate. Althou
 
 - <b>Excel</b> 
 - <b>RStudio and RMarkdown</b>
+- <b> GitHub <b>
 
 <h2>Environments Used </h2>
 
