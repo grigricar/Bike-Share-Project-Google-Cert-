@@ -1,16 +1,23 @@
 ---
 title: "Guided Google Case Study: Bike Share"
 author: "Gregory Carter"
-date: "08/07/2023"
+date: "09/09/2025"
 output:
       html_document:
         toc: true
         toc_depth: 3
         toc_float: true
 ---
+```{r}
+library(knitr)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+
+
 <br>
 
-### **1.Context:** 
+### **1.Context** 
 
 This is a project guided by Google for the Google Data Analyst Certificate. This is the bike-share project, based on a fictional company: "Cyclist". I will be guided and reminded of the steps of going through a completed project.The steps follow the **ASK, PREPARE, PROCESS, ANALYZE, SHARE, ACT** requirements, where the aim is to investigate how annual and casual riders use the bikes differently. The thinking that goes into executing the steps and analyzing the data will be my own.  
 <br>
@@ -110,8 +117,9 @@ The two data sets are combined and an overview of the column attributes is given
 
 ```{r}
 library(tidyverse)
-Divvy_2019 <- read_csv("C:\\Users\\Greg\\OneDrive\\Documents\\Coursera Notes\\8. CAPSTONE\\Bike Share\\Working Documents\\Divvy_2019_Q1.csv")
-Divvy_2020 <- read_csv("C:\\Users\\Greg\\OneDrive\\Documents\\Coursera Notes\\8. CAPSTONE\\Bike Share\\Working Documents\\Divvy_2020_Q1.csv")
+
+Divvy_2019 <- read_csv("Divvy_2019_Q1.csv")
+Divvy_2020 <- read_csv("Divvy_2020_Q1.csv")
 combined_data <- bind_rows(Divvy_2019, Divvy_2020)
 
 colnames(combined_data)

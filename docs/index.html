@@ -11,7 +11,7 @@
 
 <meta name="author" content="Gregory Carter" />
 
-<meta name="date" content="2023-08-07" />
+<meta name="date" content="2025-09-09" />
 
 <title>Guided Google Case Study: Bike Share</title>
 
@@ -1481,14 +1481,17 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Guided Google Case Study: Bike Share</h1>
 <h4 class="author">Gregory Carter</h4>
-<h4 class="date">08/07/2023</h4>
+<h4 class="date">09/09/2025</h4>
 
 </div>
 
 
+<pre class="r"><code>library(knitr)</code></pre>
+<pre><code>## Warning: package &#39;knitr&#39; was built under R version 4.4.3</code></pre>
+<pre class="r"><code>knitr::opts_chunk$set(message = FALSE, warning = FALSE)</code></pre>
 <p><br></p>
 <div id="context" class="section level3">
-<h3><strong>1.Context:</strong></h3>
+<h3><strong>1.Context</strong></h3>
 <p>This is a project guided by Google for the Google Data Analyst
 Certificate. This is the bike-share project, based on a fictional
 company: “Cyclist”. I will be guided and reminded of the steps of going
@@ -1616,46 +1619,11 @@ order for the two data sets.</p></li>
 <h3><strong>5. ANALYSE</strong></h3>
 <p>The two data sets are combined and an overview of the column
 attributes is given:</p>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.4.3</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.4.3</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.4.3</code></pre>
-<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.4.3</code></pre>
-<pre><code>## Warning: package &#39;purrr&#39; was built under R version 4.4.3</code></pre>
-<pre><code>## Warning: package &#39;lubridate&#39; was built under R version 4.4.3</code></pre>
-<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
-## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-## ✔ purrr     1.1.0     
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<pre class="r"><code>Divvy_2019 &lt;- read_csv(&quot;C:\\Users\\Greg\\OneDrive\\Documents\\Coursera Notes\\8. CAPSTONE\\Bike Share\\Working Documents\\Divvy_2019_Q1.csv&quot;)</code></pre>
-<pre><code>## Rows: 365069 Columns: 11
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr  (3): start_station_name, end_station_name, usertype
-## dbl  (3): start_station_id, end_station_id, Weekday
-## date (2): start_date, end_date
-## time (3): start_time, end_time, ride_length
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>Divvy_2020 &lt;- read_csv(&quot;C:\\Users\\Greg\\OneDrive\\Documents\\Coursera Notes\\8. CAPSTONE\\Bike Share\\Working Documents\\Divvy_2020_Q1.csv&quot;)</code></pre>
-<pre><code>## Rows: 426770 Columns: 11
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr  (3): start_station_name, end_station_name, usertype
-## dbl  (3): start_station_id, end_station_id, Weekday
-## date (2): start_date, end_date
-## time (3): start_time, end_time, ride_length
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>combined_data &lt;- bind_rows(Divvy_2019, Divvy_2020)
+<pre class="r"><code>library(tidyverse)
+
+Divvy_2019 &lt;- read_csv(&quot;Divvy_2019_Q1.csv&quot;)
+Divvy_2020 &lt;- read_csv(&quot;Divvy_2020_Q1.csv&quot;)
+combined_data &lt;- bind_rows(Divvy_2019, Divvy_2020)
 
 colnames(combined_data)</code></pre>
 <pre><code>##  [1] &quot;start_date&quot;         &quot;start_time&quot;         &quot;end_date&quot;          
@@ -1685,13 +1653,9 @@ print(paste(&quot;So there are&quot;, difference, &quot;more annual users&quot; 
 (probably an error in entry because this impossible), and recorded
 incorrectly. These data were removed to find the average ride
 length.</p>
-<pre class="r"><code>library(hms)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;hms&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:lubridate&#39;:
-## 
-##     hms</code></pre>
-<pre class="r"><code>combined_data_clean &lt;- combined_data %&gt;%
+<pre class="r"><code>library(hms)
+
+combined_data_clean &lt;- combined_data %&gt;%
   mutate(ride_length = as.numeric(hms::as_hms(ride_length)))</code></pre>
 <p>The mean travel time for casual and annual users is determined. For
 casual users in hh:mm:ss we have:</p>
@@ -1776,17 +1740,8 @@ print(paste(&quot;So the top 65 most popular starting stations represent&quot;, 
 <p>Comparing the frequency of trips made by casual users to annual
 (“subscribed” users). It is clear that the majority of trips (659,854)
 are made by annual users.</p>
-<pre class="r"><code>library(scales)</code></pre>
-<pre><code>## Warning: package &#39;scales&#39; was built under R version 4.4.3</code></pre>
-<pre><code>## 
-## Attaching package: &#39;scales&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     discard</code></pre>
-<pre><code>## The following object is masked from &#39;package:readr&#39;:
-## 
-##     col_factor</code></pre>
-<pre class="r"><code>combined_data %&gt;%
+<pre class="r"><code>library(scales)
+combined_data %&gt;%
   ggplot(aes(x = usertype, fill = usertype)) +
   geom_bar(position = &quot;dodge&quot;) +
   scale_y_continuous(labels = comma) +
