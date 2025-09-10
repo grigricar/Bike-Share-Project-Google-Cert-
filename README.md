@@ -3,7 +3,7 @@
 <a href="https://grigricar.github.io/Bike-Share-Project-Google-Cert-/">Click here for project page</a>
 
 <h2>Description</h2>
-This project follows the structure as outlined by the Google Certificate. Although I did add my own touch the analysis, the main objective was to familiarise myself with the stages of the project and the integration of the various tools.   
+This project follows the structure as outlined by the Google Certificate. Although I did add my own touch to the analysis, the main objective was to familiarise myself with the stages of the project and the integration of the various tools.   
 <br />
 
 
@@ -13,9 +13,14 @@ This project follows the structure as outlined by the Google Certificate. Althou
 - <b>RStudio and RMarkdown</b>
 - <b> GitHub <b>
 
-<h2>Environments Used </h2>
+<h2> Skills </h2>
 
-- <b>Windows 11</b> (21H2)
+- <b>Data cleaning and processing</b> 
+- <b>Data Exploration</b>
+- <b>GitHub + Kaggle: navigating repositories, filepaths and html <b>
+- <b>Excel: filtering, aggregation, basic formulas, formatting, pivot tables</b> 
+- <b>RStudio: Rcoding, pipelines, visualisation, Rmarkdown, dataframe manipulation </b>
+- <b>Data Analysis Process <b>
 
 <h2>Program walk-through:</h2>
 
