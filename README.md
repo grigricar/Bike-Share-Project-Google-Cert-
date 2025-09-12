@@ -27,7 +27,7 @@ This project follows the structure as outlined by the Google Certificate. Althou
 <p align="center">
 
 Bikeshare company like that of the Divvy company:  <br/>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/00_2141_Bicycle-sharing_systems_-_Sweden.jpg/1280px-00_2141_Bicycle-sharing_systems_-_Sweden.jpg" height="80%" width="80%" alt="Bikeshare"/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/00_2141_Bicycle-sharing_systems_-_Sweden.jpg/1280px-00_2141_Bicycle-sharing_systems_-_Sweden.jpg" height="50%" width="50%" alt="Centered Image"/>
 <br />
 
 </p>
