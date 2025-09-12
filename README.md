@@ -2,6 +2,12 @@
 
 <a href="https://grigricar.github.io/Bike-Share-Project-Google-Cert-/">ClICK HERE for project page</a>
 
+<p align="center">
+Bikeshare company like that of the Divvy company:  <br/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/00_2141_Bicycle-sharing_systems_-_Sweden.jpg/1280px-00_2141_Bicycle-sharing_systems_-_Sweden.jpg" height="50%" width="50%"/>
+<br />
+</p>
+
 <h2>Description</h2>
 This project follows the structure as outlined by the Google Certificate. Although I did add my own touch to the analysis, the main objective was to familiarise myself with the stages of the project and the integration of the various tools.   
 <br />
@@ -24,13 +30,7 @@ This project follows the structure as outlined by the Google Certificate. Althou
 
 <h2> Reflection and Questions:</h2>
 
-<p align="center">
 
-Bikeshare company like that of the Divvy company:  <br/>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/00_2141_Bicycle-sharing_systems_-_Sweden.jpg/1280px-00_2141_Bicycle-sharing_systems_-_Sweden.jpg" height="50%" width="50%" alt="Centered Image"/>
-<br />
-
-</p>
 
 <!--
  ```diff
