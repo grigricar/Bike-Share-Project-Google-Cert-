@@ -17,19 +17,30 @@ This project follows the structure as outlined by the Google Certificate. Althou
 
 - <b>Excel</b> 
 - <b>RStudio and RMarkdown</b>
-- <b> GitHub <b>
+- <b> GitHub </b>
 
 <h2> Skills </h2>
 
 - <b>Data cleaning and processing</b> 
 - <b>Data Exploration</b>
-- <b>GitHub + Kaggle: navigating repositories, filepaths and html <b>
+- <b>GitHub + Kaggle: navigating repositories, filepaths and html </b>
 - <b>Excel: filtering, aggregation, basic formulas, formatting, pivot tables</b> 
 - <b>RStudio: Rcoding, pipelines, visualisation, Rmarkdown, dataframe manipulation </b>
-- <b>Data Analysis Process <b>
+- <b>Data Analysis Process </b>
 
 <h2> Reflection and Questions:</h2>
-
+<br/>
+The focus here was really on implementing the Data Analysis process of investigation and cementing core excel and R skills. The cleaning and data exploration phase wentquickly in Excel; I was suprised it could handle so many rows, even though it did lag a little on bigger pivot calculations. I discovered later on in the process and irrgularity in the length of ride calculation. This is a lesson in big databased: NEVER ASSUME. I should have checked with an excel filter that the the ruternrd value was numeric for all calculations. I initially filter out these rows in R when I encountered the error, but eventually redid my clean in excel. Looking ahead; the whole process of investigation and reporting has been consolidated. I would be able to move quicker through the technical requirements.  
+<br>
+<br/>
+I think I handled the documentation of the process quite well in the report, and was able to approach the question in a way that could add value to the business problem at hand. The project also, unexpectedly, helped me to understand filling systems when uploading to Kaggle and Github respectiveley. Some basic html was also required.
+<br/>
+What this project lacked was any more advanced look at the data. Some questions and points to chew on include:
+<br/>
+-  Could I play around more with ggplot2 in R to produce more clear and eye-catching graphs?
+-  I would like to find more correlations between variables. I could have looked at temperature and weather influence on bike use, and investigated correlations with scatterplots, potentially building a basic model. 
+-  The two datasets were merged. I could have done more to explore the differences between the two datasets to mark out what changes had occured in the bike use over the period of a year. 
+-
 
 
 <!--
