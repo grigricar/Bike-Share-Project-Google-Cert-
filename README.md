@@ -18,13 +18,13 @@ This project follows the structure as outlined by the Google Certificate. Althou
 - <b>Excel</b> 
 - <b>RStudio and RMarkdown</b>
 - <b> GitHub </b>
-- <b> Markdown </b>
+- <b>Basic HTML </b>
 
 <h2> Skills </h2>
 
 - <b>Data cleaning and processing</b> 
 - <b>Data Exploration</b>
-- <b>GitHub + Kaggle: navigating repositories, file paths and using Markdown </b>
+- <b>GitHub + Kaggle: navigating repositories, file paths and using HTML</b>
 - <b>Excel: filtering, aggregation, basic formulas, formatting, pivot tables</b> 
 - <b>RStudio: Rcoding, pipelines, visualisation, Rmarkdown, dataframe manipulation </b>
 - <b>Data Analysis Process </b>
